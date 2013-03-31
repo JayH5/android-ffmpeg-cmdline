@@ -1,7 +1,10 @@
 android-ffmpeg-cmdline
 ======================
 
-Command-line ffmpeg for android (based on https://github.com/guardianproject/android-ffmpeg-java)
+Command-line ffmpeg for android (very loosely based on https://github.com/guardianproject/android-ffmpeg-java).
+This implementation has a number of (fairly severe) issues (see 'Other notes') but for a quick-and-dirty application of ffmpeg it may be useful.
+
+![Demo screen](/screenshots/2013-04-01 00.44.25.png)
 
 Included in this repo is:
 -------------------------
@@ -9,20 +12,18 @@ Included in this repo is:
 
 2. Prebuilt static library of ffmpeg for Android (res/raw/ffmpeg)
 
-3. The Java wrapper for the ffmpeg static library, which is really just a cleaned-up version of the guardian project's work.
+3. The Java wrapper for the ffmpeg static library, which is really just a wrapper for access to the commandline through Java's Process class.
 
-4. A suggested implementation of how to make a video from a selection of images using this version of ffmpeg (/src/com/example/android\_ffmpeg\_cmdline/VideoMaker.java
-
-5. My attempt at getting JavaCV to do the job (VideoWorker.java). See https://code.google.com/p/javacv/
+4. A demo app. The screenshot should explain everything. (Requires Android 2.3)
 
 About this ffmpeg build:
 ------------------------
-- Based on ffmpeg 1.0
-- Built using the Android NDK r8c (I have also built it using r8b) with the GCC 4.6 compiler
-- A fairly stripped down build. I tried to include only the codecs that Android natively supports (see here: http://developer.android.com/guide/appendix/media-formats.html). Building with all the CODECS results in a file size >8MB, whereas this build is <\4MB.
+- Based on ffmpeg 1.2
+- Built using the Android NDK r8e with the GCC 4.6 compiler (should be able to build back to r8b by changing build script to use x86 instead of x86_64)
+- This is the standard ffmpeg build (so with all the options switched on). By switching off options in the build script you could get the binary file size down to below 4MB from 8MB.
 
 Other notes:
 ------------
-- While I'm very greatful for the work of the Guardian Project, their implementation of all the command line work is kind of a mess. It needs to be redone. I've tried to clean it up a little.
 - The key problem with ffmpeg on command-line is working around the Android permissions. As far as I can see, in Android 4.1, when you run a command line native program it runs as a user of some kind (in the Unix sense) that has virtually no access to any files. I could chmod and gain access to files in the application's directory but only on the internal memory (not the SD card) on my phone.
-- Using JavaCV had two problems for me. Firstly, it results in an .apk file size of ~50MB and secondly I couldn't get any of the audio CODECS to work. Trying to set an audio CODEC for the ffmpegFrameRecorder always results in an audioCodecNotFound exception. This is really a pity, because making the video without sound is fairly painless and works quite well.
+- The binary file size is fairly large - 8MB - and there have to be 2 copies of it once the app is installed.
+- There are no nice callbacks from the Java Process that things have gone well or not. We only have stdout and stderr to work with.
