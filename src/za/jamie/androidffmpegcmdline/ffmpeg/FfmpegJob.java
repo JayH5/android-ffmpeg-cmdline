@@ -55,15 +55,15 @@ public class FfmpegJob {
 		cmd.add(mFfmpegPath);
 		cmd.add("-y");
 		
-		if (TextUtils.isEmpty(inputFormat)) {
+		if (!TextUtils.isEmpty(inputFormat)) {
 			cmd.add(FFMPEGArg.ARG_FORMAT);
 			cmd.add(inputFormat);
 		}
-		if (TextUtils.isEmpty(inputVideoCodec)) {
+		if (!TextUtils.isEmpty(inputVideoCodec)) {
 			cmd.add(FFMPEGArg.ARG_VIDEOCODEC);
 			cmd.add(inputVideoCodec);
 		}
-		if (TextUtils.isEmpty(inputAudioCodec)) {
+		if (!TextUtils.isEmpty(inputAudioCodec)) {
 			cmd.add(FFMPEGArg.ARG_AUDIOCODEC);
 			cmd.add(inputAudioCodec);
 		}
@@ -86,15 +86,15 @@ public class FfmpegJob {
 				cmd.add(FFMPEGArg.ARG_FRAMERATE);
 				cmd.add(String.valueOf(videoFramerate));
 			}
-			if (TextUtils.isEmpty(videoCodec)) {
+			if (!TextUtils.isEmpty(videoCodec)) {
 				cmd.add(FFMPEGArg.ARG_VIDEOCODEC);
 				cmd.add(videoCodec);
 			}
-			if (TextUtils.isEmpty(videoBitStreamFilter)) {
+			if (!TextUtils.isEmpty(videoBitStreamFilter)) {
 				cmd.add(FFMPEGArg.ARG_VIDEOBITSTREAMFILTER);
 				cmd.add(videoBitStreamFilter);
 			}		
-			if (TextUtils.isEmpty(videoFilter)) {
+			if (!TextUtils.isEmpty(videoFilter)) {
 				cmd.add(FFMPEGArg.ARG_VIDEOFILTER);
 				cmd.add(videoFilter);
 			}
@@ -102,15 +102,15 @@ public class FfmpegJob {
 		if (disableAudio) {
 			cmd.add(FFMPEGArg.ARG_DISABLE_AUDIO);
 		} else {
-			if (TextUtils.isEmpty(audioCodec)) {
+			if (!TextUtils.isEmpty(audioCodec)) {
 				cmd.add(FFMPEGArg.ARG_AUDIOCODEC);
 				cmd.add(audioCodec);
 			}
-			if (TextUtils.isEmpty(audioBitStreamFilter)) {
+			if (!TextUtils.isEmpty(audioBitStreamFilter)) {
 				cmd.add(FFMPEGArg.ARG_AUDIOBITSTREAMFILTER);
 				cmd.add(audioBitStreamFilter);
 			}
-			if (TextUtils.isEmpty(audioFilter)) {
+			if (!TextUtils.isEmpty(audioFilter)) {
 				cmd.add(FFMPEGArg.ARG_AUDIOFILTER);
 				cmd.add(audioFilter);
 			}
@@ -128,7 +128,7 @@ public class FfmpegJob {
 			}
 		}
 			
-		if (TextUtils.isEmpty(format)) {
+		if (!TextUtils.isEmpty(format)) {
 			cmd.add("-f");
 			cmd.add(format);
 		}
